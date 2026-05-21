@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动物塑数据后台</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <header class="admin-topbar">
+        <div>
+          <p class="eyebrow">Animal Persona Admin</p>
+          <h1>测试结果后台</h1>
+          <p>查看匿名测试结果、动物分布和五维均值。</p>
+        </div>
+        <div class="admin-actions">
+          <a class="ghost-button" href="/">返回测试</a>
+          <button class="primary-button" type="button" id="refreshButton">刷新数据</button>
+        </div>
+      </header>
+
+      <section class="admin-token is-hidden" id="tokenPanel">
+        <div>
+          <strong>需要后台访问口令</strong>
+          <span>如果启动服务时设置了 ADMIN_TOKEN，请在这里输入。</span>
+        </div>
+        <div class="token-form">
+          <input id="tokenInput" type="password" placeholder="后台口令" />
+          <button class="primary-button" type="button" id="saveTokenButton">进入后台</button>
+        </div>
+      </section>
+
+      <section class="metric-grid" id="metricGrid"></section>
+
+      <div class="admin-grid">
+        <section class="panel">
+          <div class="panel-head">
+            <h3>动物类型分布</h3>
+          </div>
+          <div class="bar-list" id="animalDistribution"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h3>五维平均原始分</h3>
+          </div>
+          <div class="bar-list" id="dimensionAverages"></div>
+        </section>
+      </div>
+
+      <section class="panel result-table-panel">
+        <div class="panel-head">
+          <h3>结果明细</h3>
+          <a class="ghost-button export-link" id="exportLink" href="/api/results.csv">导出 CSV</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>主动物</th>
+                <th>副动物</th>
+                <th>匹配度</th>
+                <th>五维原始分</th>
+                <th>耗时</th>
+                <th>访客</th>
+                <th>答案</th>
+              </tr>
+            </thead>
+            <tbody id="resultRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="admin.js"></script>
+  </body>
+</html>
