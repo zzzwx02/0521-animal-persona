@@ -4,10 +4,19 @@ create table if not exists public.animal_results (
   session_id text,
   created_at timestamptz not null,
   received_at timestamptz not null default now(),
+  nickname text,
   primary_animal text,
   primary_animal_name text,
   secondary_animal text,
   secondary_animal_name text,
+  full_name text,
+  animal_name text,
+  state_type text,
+  state_name text,
+  code text,
+  core_code text,
+  confidence text,
+  middle_dimensions jsonb not null default '[]'::jsonb,
   match integer,
   second_match integer,
   scores jsonb not null default '{}'::jsonb,
@@ -21,11 +30,25 @@ create table if not exists public.animal_results (
   ip_hash text
 );
 
+alter table public.animal_results
+  add column if not exists nickname text,
+  add column if not exists full_name text,
+  add column if not exists animal_name text,
+  add column if not exists state_type text,
+  add column if not exists state_name text,
+  add column if not exists code text,
+  add column if not exists core_code text,
+  add column if not exists confidence text,
+  add column if not exists middle_dimensions jsonb not null default '[]'::jsonb;
+
 create index if not exists animal_results_created_at_idx
   on public.animal_results (created_at desc);
 
 create index if not exists animal_results_primary_animal_idx
   on public.animal_results (primary_animal);
+
+create index if not exists animal_results_code_idx
+  on public.animal_results (code);
 
 create index if not exists animal_results_visitor_id_idx
   on public.animal_results (visitor_id);
